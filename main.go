@@ -53,18 +53,11 @@ func GetLatestYouTubeVideo() (string, string, string, error) {
 	var ytResp YouTubeResponse
 	json.Unmarshal(body, &ytResp)
 
-	// if len(ytResp.Items) > 0 {
-	// 	videoID := ytResp.Items[0].ID.VideoID
-	// 	title := ytResp.Items[0].Snippet.Title
-	// 	thumbnailURL := ytResp.Items[0].Snippet.Thumbnails.High.URL
-	// 	return title, "https://www.youtube.com/watch?v=" + videoID, thumbnailURL, nil
-	// }
 	if len(ytResp.Items) > 0 {
 		videoID := ytResp.Items[0].ID.VideoID
 		title := ytResp.Items[0].Snippet.Title
 		thumbnailURL := ytResp.Items[0].Snippet.Thumbnails.High.URL
-		embedURL := fmt.Sprintf("https://www.youtube.com/embed/%s", videoID) // Construct embed URL
-		return title, embedURL, thumbnailURL, nil                            // Return the embed URL
+		return title, "https://www.youtube.com/watch?v=" + videoID, thumbnailURL, nil
 	}
 	return "", "", "", fmt.Errorf("no videos found")
 }
